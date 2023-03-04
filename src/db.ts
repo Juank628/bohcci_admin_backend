@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const connectDB = () => { 
+export const connectDB = async() => { 
   const dataSource = new DataSource({
     type: 'mysql',
     host: process.env.DB_HOST,
@@ -14,7 +14,6 @@ export const connectDB = () => {
     entities: [],
   });
 
-  dataSource.initialize().then(() => {
-    console.log('data source initialized');
-  });
+  await dataSource.initialize();
+  console.log('data source initialized');
 };
