@@ -1,8 +1,9 @@
 import { GraphQLString, GraphQLFloat } from 'graphql';
 import { Products } from '../../Entities/Products';
+import { ProductType } from '../typeDefs/Product';
 
 export const CREATE_PRODUCT = {
-  type: GraphQLString,
+  type: ProductType,
   args: {
     name: { type: GraphQLString },
     description: { type: GraphQLString },
@@ -24,6 +25,6 @@ export const CREATE_PRODUCT = {
       updatedAt: new Date(),
     });
     console.log(result);
-    return 'product created';
+    return {...args, id: result.identifiers[0].id};
   },
 };
