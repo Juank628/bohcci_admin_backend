@@ -1,4 +1,4 @@
-import { GraphQLString, GraphQLFloat, GraphQLInputType } from 'graphql';
+import { GraphQLString, GraphQLFloat } from 'graphql';
 import { Products } from '../../Entities/Products';
 
 export const CREATE_PRODUCT = {
@@ -10,11 +10,9 @@ export const CREATE_PRODUCT = {
     price: { type: GraphQLFloat },
     stock: { type: GraphQLString },
     family: { type: GraphQLString },
-    createdAt: { type: GraphQLString },
-    updatedAt: { type: GraphQLString },
   },
   async resolve(_: any, args: any) {
-    const { name, description, sale, price, stock, family, createdAt, updatedAt } = args;
+    const { name, description, sale, price, stock, family } = args;
     const result = await Products.insert({
       name,
       description,
@@ -22,8 +20,8 @@ export const CREATE_PRODUCT = {
       price,
       stock,
       family,
-      createdAt,
-      updatedAt,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
     console.log(result);
     return 'product created';
